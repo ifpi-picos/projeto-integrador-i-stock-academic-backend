@@ -10,7 +10,8 @@
         "forceConsistentCasingInFileNames": true,
         "experimentalDecorators": true,
         "strict": false,
-        "emitDecoratorMetadata": true
+        "emitDecoratorMetadata": true,
+        "strictPropertyInitialization": false
     },
     "include": ["src/**/*.ts"]
 }
