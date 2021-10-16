@@ -14,13 +14,26 @@ export class CreateUsers1614093513900 implements MigrationInterface {
           {
             name: "name",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "email",
             type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "wallet_id",
+            type: "varchar",
+            isNullable: true,
+            isUnique: true,
           },
           {
             name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
             type: "timestamp",
             default: "now()",
           },
