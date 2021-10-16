@@ -1,19 +1,41 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/UserService";
+import { getCustomRepository } from "typeorm";
+import { UsersRepository } from "../repositories/UsersRepository";
+import * as yup from "yup";
+import { AppError } from "../errors/AppError";
 
-export class UserController {
-    private userService = new UserService();
-    async create(request: Request, response: Response) {
-        const { name } = request.body;
+class UserController {
+  async create(request: Request, response: Response) {
+    const { name, email } = request.body;
 
-        try {
-            const userName = await this.userService.create(name);
+    const schema = yup.object().shape({
+      name: yup.string().required(),
+      email: yup.string().email().required(),
+    });
 
-            return response.status(201).json({ name: userName });
-        } catch (error) {
-            return response
-                .status(400)
-                .json({ message: error.message || "Erro inesperado" });
-        }
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      throw new AppError(error);
     }
+
+    const usersRepository = getCustomRepository(UsersRepository);
+    const userAlreadExists = await usersRepository.findOne({
+      email,
+    });
+
+    if (userAlreadExists) {
+      throw new AppError("User alread exists!");
+    }
+    const user = usersRepository.create({
+      name,
+      email,
+    });
+
+    await usersRepository.save(user);
+
+    return response.status(201).json(user);
+  }
 }
+
+export { UserController };
