@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  pgsql_development:
+    image: postgres:alpine
+    ports:
+      - "5433:5432"
+    container_name: "pgsql-2"
+    restart: always
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpassword
+      POSTGRES_DB: g-pharm
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8083:8080
+
+volumes:
+  pg-data:
