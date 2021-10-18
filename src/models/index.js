@@ -1,13 +1,5 @@
-const { Vendors } = require('./Vendors')
-const { Pharmacies } = require('./Pharmacies')
-const { Sales } = require('./Sales')
-const { Medicines } = require('./Medicienes')
-const { SalesMedicines } = require('./SalesMedicines')
+const { Users } = require('./implementations/Users')
 
 module.exports = {
-  Vendors,
-  Pharmacies,
-  Sales,
-  Medicines,
-  SalesMedicines
+  Users
 }

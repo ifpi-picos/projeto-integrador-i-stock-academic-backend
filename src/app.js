@@ -22,11 +22,10 @@ app.use(cors({
 app.all('/api/*', (request, response, next) => {
   const publicRoutes = process.env.PUBLIC_ROUTES.split(' ')
 
-  for (let i = 0; i < publicRoutes.length; i++) {
-    if (publicRoutes[i] === request.path) {
+    if (publicRoutes.includes(request.path)) {
       return next()
     }
-  }
+
   authMiddleware(request, response, next)
 })
 
