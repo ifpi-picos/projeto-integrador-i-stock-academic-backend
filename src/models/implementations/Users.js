@@ -8,7 +8,7 @@ class Users extends Model {
         allowNull: true
       },
       wallet_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
         allowNull: true
       },
     }, {
@@ -18,22 +18,12 @@ class Users extends Model {
     })
   }
 
-  // static associate (models) {
-  //   this.hasMany(models.Vendors, {
-  //     foreignKey: 'pharmacy_id',
-  //     as: 'parmacy_vendors'
-  //   })
-
-  //   this.hasMany(models.Sales, {
-  //     foreignKey: 'pharmacy_id',
-  //     as: 'pharmacy_sale'
-  //   })
-
-  //   this.hasMany(models.Medicines, {
-  //     foreignKey: 'pharmacy_id',
-  //     as: 'pharmacy_medicines'
-  //   })
-  // }
+  static associate (models) {
+    this.hasOne(models.Wallet, {
+      foreignKey: 'wallet_id',
+      as: 'user_wallet'
+    })
+  }
 }
 
 module.exports = { Users }
