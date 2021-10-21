@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      phone: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       wallet_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -23,6 +27,19 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: true
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      is_admin: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,

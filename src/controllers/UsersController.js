@@ -6,10 +6,15 @@ const usersServices = new UsersServices(Users)
 
 module.exports = {
   async save(request, response) {
-    const { name, wallet_id } = request.body
+    const { name, wallet_id, phone, email, password, is_admin } = request.body
 
     const schema = yup.object().shape({
-      name: yup.string(),
+      name: yup.string('Nome deve ser do tipo string!'),
+      phone: yup.string('Telefone deve ser do tipo string!'),
+      wallet_id: yup.number('Id da carteira deve ser do tipo numerico!').integer('Id da carteira deve ser do tipo númerico inteiro!'),
+      email: yup.string().email('Email deve ser válido!'),
+      password: yup.string('A senha deve string!'),
+      is_admin: yup.boolean('Admin deve ser booleano!')
     })
 
     try {
@@ -19,10 +24,17 @@ module.exports = {
     }
 
     try {
-      const user = await usersServices.create(
+      const user = await usersServices.create({
         name,
-        wallet_id
-      )
+        wallet_id,
+        phone,
+        email,
+        password,
+        is_admin
+      })
+
+      delete user.password
+      delete user.wallet_id
 
       return response.status(201).json(user)
     } catch (error) {

@@ -1,13 +1,24 @@
+const bcrypt = require('bcrypt')
+const SALT = 8
 class UsersServices {
-  constructor (Users) {
+  constructor(Users) {
     this.users = Users
   }
 
-  async create (name, wallet_id) {
+  async create(dataUser = {}) {
     try {
-      const dataUser = {
-        name,
-        wallet_id
+      const userExists = await this.getByEmail(dataUser.email)
+
+      if (userExists) throw new Error('Usuário já cadastrado!')
+
+      if (dataUser.is_admin) {
+        if (!dataUser.password || !dataUser.email) {
+          throw new Error('Admin deve ter email e senha!')
+        }
+
+        dataUser.password = bcrypt.hashSync(dataUser.password, SALT)
+      } else if (!dataUser.name) {
+        throw new Error('Usuário não pode ser salvo sem nome!')
       }
 
       return await this.users.create(dataUser)
@@ -16,7 +27,7 @@ class UsersServices {
     }
   }
 
-  async getByPk (id) {
+  async getByPk(id) {
     try {
       const user = await this.users.findByPk(id)
 
@@ -30,7 +41,17 @@ class UsersServices {
     }
   }
 
-  async deleteById (id) {
+  async getByEmail(email) {
+    try {
+      if (!email) return
+
+      return await this.users.findOne({ email })
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async deleteById(id) {
     try {
       const user = await this.getByPk(id)
 
