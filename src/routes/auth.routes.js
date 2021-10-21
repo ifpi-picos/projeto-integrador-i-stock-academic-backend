@@ -3,6 +3,6 @@ const authController = require('../controllers/AuthController')
 
 const routes = Router()
 
-routes.post('/users/auth', authController.userLogin)
+routes.post('/admin/auth', authController.userLogin)
 
 module.exports = routes
