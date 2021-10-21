@@ -8,14 +8,14 @@ class AuthServices {
   }
 
   generateToken (entite) {
-    const token = jwt.sign({ id: entite.id }, authConfig.secret, { expiresIn: '1h' })
+    const token = jwt.sign({ id: entite.id }, authConfig.secret, { expiresIn: '12h' })
     return token
   }
 
   async signin (email, password) {
     try {
       const entite = await this.model.findOne({
-        where: { email }
+        where: { email, is_admin: true }
       })
 
       if (!entite) {

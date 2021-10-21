@@ -4,12 +4,14 @@ const yup = require('yup')
 
 const authVendorsServices = new AuthServices(Users)
 
-const schema = yup.object().shape({
-  name: yup.string(),
-})
 module.exports = {
-  async userLogin (request, response) {
-    const { name } = request.body
+  async userLogin(request, response) {
+    const { email, password } = request.body
+
+    const schema = yup.object().shape({
+      email: yup.string().email('Insira um email válido').required('Insira um email'),
+      password: yup.string().required('Insira uma senha')
+    })
 
     try {
       await schema.validate(request.body, { abortEarly: false })
@@ -18,7 +20,7 @@ module.exports = {
     }
 
     try {
-      const { token, dataEntite } = await authVendorsServices.signin(name)
+      const { token, dataEntite } = await authVendorsServices.signin(email, password)
       response.status(201).json({ auth: true, token, entite: dataEntite })
     } catch (error) {
       response.status(401).json({ auth: false, token: null, error: error.message })
