@@ -1,15 +1,31 @@
 const { Model, DataTypes } = require('sequelize')
 
 class Users extends Model {
-  static init (sequelize) {
+  static init(sequelize) {
     super.init({
       name: {
         type: DataTypes.STRING,
         allowNull: true
       },
-      wallet_id: {
-        type: DataTypes.INTEGER,
+      phone: {
+        type: DataTypes.STRING,
         allowNull: true
+      },
+      wallet_id: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      is_admin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
       },
     }, {
       sequelize,
@@ -18,22 +34,12 @@ class Users extends Model {
     })
   }
 
-  // static associate (models) {
-  //   this.hasMany(models.Vendors, {
-  //     foreignKey: 'pharmacy_id',
-  //     as: 'parmacy_vendors'
-  //   })
-
-  //   this.hasMany(models.Sales, {
-  //     foreignKey: 'pharmacy_id',
-  //     as: 'pharmacy_sale'
-  //   })
-
-  //   this.hasMany(models.Medicines, {
-  //     foreignKey: 'pharmacy_id',
-  //     as: 'pharmacy_medicines'
-  //   })
-  // }
+  static associate(models) {
+    this.hasOne(models.Wallet, {
+      foreignKey: 'wallet_id',
+      as: 'user_wallet'
+    })
+  }
 }
 
 module.exports = { Users }
