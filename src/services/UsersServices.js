@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt')
 const SALT = 8
+const { Wallet } = require('../models')
 class UsersServices {
-  constructor(Users) {
+  constructor (Users) {
     this.users = Users
   }
 
@@ -23,6 +24,21 @@ class UsersServices {
       }
 
       return await this.users.create(dataUser)
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async getAllUsers() {
+    try {
+      const users = await this.users.findAll({
+        attributes: ['id', 'name', 'email', 'phone', "wallet_id"],
+        include: {
+          model: Wallet,
+          association: 'wallet' }
+      });
+
+      return users;
     } catch (error) {
       throw new Error(error)
     }

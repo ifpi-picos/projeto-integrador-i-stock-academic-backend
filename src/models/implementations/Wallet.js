@@ -17,6 +17,13 @@ class Wallet extends Model {
       tableName: 'wallet'
     })
   }
+
+  static associate(models) {
+    this.belongsTo(models.Users, {
+      foreignKey: 'walletId',
+      as: 'user_wallet'
+    })
+  }
 }
 
 module.exports = { Wallet }

@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const authRoutes = require('./auth.routes')
 const usersRoutes = require('./users.routes')
+const walletRoutes = require('./wallet.routes')
 
 const router = Router()
 
@@ -10,5 +11,6 @@ router.get('/', function (req, res) {
 
 router.use(authRoutes)
 router.use(usersRoutes)
+router.use(walletRoutes)
 
 module.exports = router

@@ -42,6 +42,16 @@ module.exports = {
     }
   },
 
+  async getAllUsers(request, response) {
+    try {
+      const users = await usersServices.getAllUsers();
+
+      response.status(200).json(users);
+    } catch (error) {
+      return response.status(400).json(error.message)
+    }
+  },
+
   async deleteById(request, response) {
     const { id } = request.params
 
