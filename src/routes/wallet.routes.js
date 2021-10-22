@@ -7,5 +7,6 @@ routes.get('/wallet', WalletController.getAllWallets)
 
 routes.post('/wallet', WalletController.create)
 routes.post('/wallet/balance', WalletController.addBalance)
+routes.patch('wallet/bindUser', WalletController.bindUserWallet)
 
 module.exports = routes;

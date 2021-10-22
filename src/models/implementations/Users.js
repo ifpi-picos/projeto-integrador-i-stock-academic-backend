@@ -11,10 +11,6 @@ class Users extends Model {
         type: DataTypes.STRING,
         allowNull: true
       },
-      wallet_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-      },
       email: {
         type: DataTypes.STRING,
         allowNull: true
@@ -36,7 +32,7 @@ class Users extends Model {
 
   static associate(models) {
     this.hasOne(models.Wallet, {
-      foreignKey: 'walletId',
+      foreignKey: 'user_id',
       as: 'wallet'
     })
   }

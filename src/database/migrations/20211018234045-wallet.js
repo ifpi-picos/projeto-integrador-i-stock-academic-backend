@@ -13,10 +13,21 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false
       },
-      wallet_id: {
+      wallet_code: {
         type: Sequelize.TEXT,
         allowNull: false,
         unique: true
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        unique: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       created_at: {
         type: Sequelize.DATE,

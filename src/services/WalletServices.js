@@ -5,12 +5,16 @@ class WalletServices {
     this.wallet = Wallet
   }
 
-  async create (balance) {
+  async create () {
     try {
-      const dataWallet = { wallet_id: v4(), balance };
+      const dataWallet = { wallet_code: v4(), balance: 0 };
 
-      return await this.wallet.create(dataWallet);
+      const wallet = await this.wallet.create(dataWallet);
+      console.log('veio aqui', wallet)
+
+      return wallet
     } catch (error) {
+      console.log('>>>>>',error)
       throw new Error(error);
     }
   }
@@ -30,7 +34,7 @@ class WalletServices {
       if (typeof identify === "number")
         return await this.wallet.findByPk(identify);
 
-      return this.wallet.findOne({ where: { wallet_id: identify } });
+      return this.wallet.findOne({ where: { wallet_code: identify } });
     } catch (error) {
       throw new Error(error);
     }

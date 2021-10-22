@@ -17,17 +17,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      wallet_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        unique: true,
-        references: {
-          model: 'wallet',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: true,

@@ -5,20 +5,31 @@ const walletService = new WalletServices(Wallet);
 const usersService = new UsersServices(Users);
 
 module.exports = {
-  async create (request, response) {
+  async create(request, response) {
     try {
-      const { balance, name, email, phone } = request.body
+      const wallet = await walletService.create();
 
-      if(!name) {
-        return response.status(400).json('invalid name!')
-      }
-      const wallet = await walletService.create(balance);
-
-      const user = await usersService.create({ name: name, email: email, phone: phone, wallet_id: wallet.id, is_admin: false });
-
-      return response.status(201).json({ user, wallet });
+      return response.status(201).json({ wallet });
     } catch (error) {
       return response.status(400).json({ error })
+    }
+  },
+
+  async bindUserWallet(request, response) {
+    const { name, phone, email, wallet_id } = request.body
+
+    try {
+      const user_wallet = await usersService.create({
+        name,
+        phone,
+        email,
+        wallet_id,
+        is_admin: false
+      })
+
+      return response.status(201).json({ user_wallet })
+    } catch (error) {
+
     }
   },
 

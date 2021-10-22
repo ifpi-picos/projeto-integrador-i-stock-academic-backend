@@ -7,10 +7,14 @@ class Wallet extends Model {
         type: DataTypes.DOUBLE,
         allowNull: false
       },
-      wallet_id: {
+      wallet_code: {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      user_id: {
+        type: DataTypes.NUMBER,
+        allowNull: true
+      }
     }, {
       sequelize,
       modelName: 'Wallet',
@@ -20,7 +24,7 @@ class Wallet extends Model {
 
   static associate(models) {
     this.belongsTo(models.Users, {
-      foreignKey: 'walletId',
+      foreignKey: 'user_id',
       as: 'user_wallet'
     })
   }
