@@ -9,7 +9,7 @@ module.exports = {
       password: '$2b$08$ijKBxsekzUJs1DE2fWKeGuOwqCt7DkaOKKoPJD4kFmFbEyyZoLYGq', // Lea@fadm1n
       is_admin: true,
       created_at: new Date(),
-      updated_at: new Date(),
+      updated_at: new Date()
     }])
   },
 

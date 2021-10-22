@@ -8,6 +8,7 @@ class UsersServices {
   async create(dataUser = {}) {
     try {
       const userExists = await this.getByEmail(dataUser.email)
+      console.log(userExists);
 
       if (userExists) throw new Error('Usuário já cadastrado!')
 
@@ -45,7 +46,7 @@ class UsersServices {
     try {
       if (!email) return
 
-      return await this.users.findOne({ email })
+      return await this.users.findOne({ where: { email } })
     } catch (error) {
       throw new Error(error)
     }

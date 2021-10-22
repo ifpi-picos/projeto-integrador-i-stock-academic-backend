@@ -1,28 +1,28 @@
 class WalletServices {
-  constructor(Wallet) {
+  constructor (Wallet) {
     this.wallet = Wallet
   }
 
-  async create(balance) {
+  async create (balance) {
     try {
-      const data_wallet = { balance }
+      const dataWallet = { balance };
 
-      return await this.wallet.create(data_wallet)
+      return await this.wallet.create(dataWallet);
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 
-  async getByIdOrWalletId(identify) {
+  async getByIdOrWalletId (identify) {
     try {
-      if (typeof identify === Number)
-        return await this.wallet.findByPk(identify)
+      if (typeof identify === "number")
+        return await this.wallet.findByPk(identify);
 
-      return this.wallet.findOne({ where: { wallet_id: identify } })
+      return this.wallet.findOne({ where: { wallet_id: identify } });
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 }
 
-module.exports = { WalletServices }
+module.exports = { WalletServices };
