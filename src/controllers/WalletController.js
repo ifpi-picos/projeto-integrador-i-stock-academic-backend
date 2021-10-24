@@ -1,13 +1,13 @@
 const { Wallet, Users } = require('../models');
 const { WalletServices, UsersServices } = require('../services')
 
-const walletService = new WalletServices(Wallet);
-const usersService = new UsersServices(Users);
+const usersServices = new UsersServices(Users);
+const walletServices = new WalletServices(Wallet, usersServices);
 
 module.exports = {
   async create(request, response) {
     try {
-      const wallet = await walletService.create();
+      const wallet = await walletServices.create();
 
       return response.status(201).json({ wallet });
     } catch (error) {
@@ -16,26 +16,21 @@ module.exports = {
   },
 
   async bindUserWallet(request, response) {
-    const { name, phone, email, wallet_id } = request.body
+    const { user_id, wallet_id } = request.body
 
     try {
-      const user_wallet = await usersService.create({
-        name,
-        phone,
-        email,
-        wallet_id,
-        is_admin: false
-      })
+      const user_wallet = await walletServices.bindUserWallet({ user_id, wallet_id })
 
       return response.status(201).json({ user_wallet })
     } catch (error) {
-
+      console.log(error)
+      return response.status(400).json({ error })
     }
   },
 
   async getAllWallets(request, response) {
     try {
-      const wallets = await walletService.getAllWallets();
+      const wallets = await walletServices.getAllWallets();
 
       return response.status(200).json(wallets);
     } catch (error) {
@@ -47,7 +42,7 @@ module.exports = {
     try {
       const { balance, walletId } = request.body
 
-      const wallet = await walletService.addBalance(balance, walletId)
+      const wallet = await walletServices.addBalance(balance, walletId)
 
       return response.status(201).json(wallet)
     } catch (error) {

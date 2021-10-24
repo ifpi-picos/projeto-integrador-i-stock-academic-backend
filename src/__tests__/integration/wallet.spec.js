@@ -5,7 +5,7 @@ const { signin } = require('../helpers')
 
 const database = require('../../database')
 
-const API_PHARMACY = '/api/pharmacies'
+const API_WALLET = '/api/wallet'
 const API_VENDOR = '/api/vendors/1'
 const DEFAULT_PHARMACY = { name: 'Super Pharm', email: 'pharmsuper@pharm.com', description: 'Farmácia do rémedio mais caro do mundo.', password: '12@Erofdaf' }
 const DEFAULT_VENDOR = { name: 'fulano', email: 'fulano@nada.com', password: 'Edm@rques008' }

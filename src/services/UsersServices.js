@@ -32,6 +32,7 @@ class UsersServices {
     try {
       const users = await this.users.findAll({
         attributes: ['id', 'name', 'email', 'phone'],
+        where: { is_admin: false },
         include: {
           model: Wallet,
           association: 'wallet'
@@ -52,7 +53,7 @@ class UsersServices {
         throw new Error('Users does not Exists!')
       }
 
-      return pharmacie
+      return user
     } catch (error) {
       throw new Error(error)
     }
