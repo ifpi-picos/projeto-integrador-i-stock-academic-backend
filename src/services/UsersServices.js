@@ -35,7 +35,8 @@ class UsersServices {
         where: { is_admin: false },
         include: {
           model: Wallet,
-          association: 'wallet'
+          association: 'wallet',
+          attributes: [ 'id','balance', 'wallet_code']
         }
       });
 
