@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const SALT = 8
+const { Wallet } = require('../models')
 class UsersServices {
   constructor(Users) {
     this.users = Users
@@ -8,7 +9,6 @@ class UsersServices {
   async create(dataUser = {}) {
     try {
       const userExists = await this.getByEmail(dataUser.email)
-      console.log(userExists);
 
       if (userExists) throw new Error('Usuário já cadastrado!')
 
@@ -28,6 +28,24 @@ class UsersServices {
     }
   }
 
+  async getAllUsers() {
+    try {
+      const users = await this.users.findAll({
+        attributes: ['id', 'name', 'email', 'phone'],
+        where: { is_admin: false },
+        include: {
+          model: Wallet,
+          association: 'wallet',
+          attributes: [ 'id','balance', 'wallet_code']
+        }
+      });
+
+      return users;
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
   async getByPk(id) {
     try {
       const user = await this.users.findByPk(id)
@@ -36,7 +54,7 @@ class UsersServices {
         throw new Error('Users does not Exists!')
       }
 
-      return pharmacie
+      return user
     } catch (error) {
       throw new Error(error)
     }
@@ -57,7 +75,7 @@ class UsersServices {
       const user = await this.getByPk(id)
 
       if (!user) {
-        throw new Error('Pharmacie does not exists!')
+        throw new Error('User does not exists!')
       }
 
       return await this.users.destroy({
