@@ -15,7 +15,7 @@ app.use(express.json())
 
 app.use(cors({
   origin: process.env.CLIENT_URL,
-  methods: 'GET,PUT,POST,OPTIONS, DELETE',
+  methods: 'GET,PUT,POST,OPTIONS, DELETE, PATCH',
   allowedHeaders: 'Accept, Content-Type, Authorization'
 }))
 
