@@ -1,5 +1,16 @@
 # Instruções para fluxo de integração:
 
+
+## Link da API:
+> https://stock-academic-api.herokuapp.com/api
+
+## Link da aplicação frontend integrada com a api:
+> https://stock-academic-7e9cc.web.app
+
+### Admin Access:
+Email: **leaf.reciclagem@reci.leaf.com**<br />
+Password: **Lea@fadm1n**
+
 ### 1. Crie uma branch a partir da development para o desenvolvimento da sua atividade.
 ```
 git checkout -b <NOME_DA_BRANCH>
