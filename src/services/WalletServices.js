@@ -27,11 +27,9 @@ class WalletServices {
       const dataWallet = { wallet_code: v4(), balance: 0 };
 
       const wallet = await this.wallet.create(dataWallet);
-      console.log('veio aqui', wallet)
 
       return wallet
     } catch (error) {
-      console.log('>>>>>', error)
       throw new Error(error);
     }
   }
