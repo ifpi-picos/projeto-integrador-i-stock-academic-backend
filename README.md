@@ -1,6 +1,3 @@
-# Instruções para fluxo de integração:
-
-
 ## Link da API:
 > https://stock-academic-api.herokuapp.com/api
 
@@ -10,6 +7,8 @@
 ### Admin Access:
 Email: **leaf.reciclagem@reci.leaf.com**<br />
 Password: **Lea@fadm1n**
+
+# Instruções para fluxo de integração:
 
 ### 1. Crie uma branch a partir da development para o desenvolvimento da sua atividade.
 ```
