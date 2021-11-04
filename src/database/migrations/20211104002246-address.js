@@ -1,51 +1,48 @@
-'use strict'
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return await queryInterface.createTable('users', {
+    return await queryInterface.createTable('address', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      name: {
+      cep: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      phone: {
+      state: {
         type: Sequelize.STRING,
-        allowNull: true
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        unique: true
-      },
-      type_key_pix: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      key_pix: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      cpf_or_cnpj: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        unique: true
-      },
-      user_photo: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      is_admin: {
-        type: Sequelize.BOOLEAN,
         allowNull: false
+      },
+      city: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      public_place: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      complement: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      number: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        unique: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       created_at: {
         type: Sequelize.DATE,
@@ -59,6 +56,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return await queryInterface.dropTable('users')
+    return await queryInterface.dropTable('address')
   }
-}
+};

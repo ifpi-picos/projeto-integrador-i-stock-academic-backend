@@ -9,10 +9,6 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
-      balance: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
-      },
       wallet_code: {
         type: Sequelize.TEXT,
         allowNull: false,
