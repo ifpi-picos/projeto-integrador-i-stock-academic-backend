@@ -1,15 +1,18 @@
 const { Users } = require('../models')
 const { UsersServices } = require('../services')
 const yup = require('yup')
+const { cpf, cnpj } = require('cpf-cnpj-validator')
 
 const usersServices = new UsersServices(Users)
 
 module.exports = {
   async save(request, response) {
-    const { name, phone, email, password, is_admin } = request.body
+    const { name, nickname, cpf_or_cnpj, phone, email, password, is_admin } = request.body
 
     const schema = yup.object().shape({
       name: yup.string('Nome deve ser do tipo string!'),
+      nickname: yup.string('Apelido deve ser do tipo string!'),
+      cpf_or_cnpj: yup.string('CPF deve ser do tipo string!'),
       phone: yup.string('Telefone deve ser do tipo string!'),
       email: yup.string().email('Email deve ser válido!'),
       password: yup.string('A senha deve string!'),
@@ -18,6 +21,18 @@ module.exports = {
 
     try {
       await schema.validate(request.body, { abortEarly: false })
+
+      let cpf_or_cnpj_validate = null;
+
+      if (cpf_or_cnpj.length > 14) {
+        cpf_or_cnpj_validate = cnpj.isValid(cpf_or_cnpj)
+      } else {
+        cpf_or_cnpj_validate = cpf.isValid(cpf_or_cnpj)
+      }
+
+      if (cpf_or_cnpj_validate === false) {
+        return response.status(403).json({ message: 'CPF/CNPJ inválido!' })
+      }
     } catch (error) {
       return response.status(400).json({ message: error.errors })
     }
@@ -25,6 +40,8 @@ module.exports = {
     try {
       const user = await usersServices.create({
         name,
+        nickname,
+        cpf_or_cnpj,
         phone,
         email,
         password,

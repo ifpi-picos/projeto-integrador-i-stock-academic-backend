@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      nickname: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       phone: {
         type: Sequelize.STRING,
         allowNull: true
@@ -24,7 +28,7 @@ module.exports = {
       },
       type_key_pix: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true
       },
       key_pix: {
         type: Sequelize.STRING,
