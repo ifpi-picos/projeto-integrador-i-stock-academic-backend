@@ -3,6 +3,7 @@ const FirebaseStorage = require('multer-firebase-storage')
 const firebaseCredentials = require('../config/secret_key_firebase.json')
 const path = require('path')
 const crypto = require('crypto')
+const { v4 } = require('uuid')
 
 const storageTypes = {
   local: multer.diskStorage({
@@ -24,7 +25,9 @@ const storageTypes = {
       clientEmail: firebaseCredentials.client_email,
       privateKey: firebaseCredentials.private_key,
       projectId: firebaseCredentials.project_id
-    }
+    },
+    namePrefix: v4() + '-',
+    public: true
   }),
 }
 
