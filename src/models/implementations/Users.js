@@ -35,6 +35,10 @@ class Users extends Model {
       foreignKey: 'user_id',
       as: 'wallet'
     })
+    this.hasOne(models.Address, {
+      foreignKey: 'user_id',
+      as: 'address'
+    })
   }
 }
 

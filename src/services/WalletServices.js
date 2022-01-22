@@ -1,12 +1,12 @@
 const { v4 } = require('uuid')
 
 class WalletServices {
-  constructor(Wallet, userServices) {
+  constructor (Wallet, userServices) {
     this.wallet = Wallet
     this.userServices = userServices
   }
 
-  async bindUserWallet(props) {
+  async bindUserWallet (props) {
     try {
       const user = await this.userServices.getByPk(props.user_id)
 
@@ -14,56 +14,60 @@ class WalletServices {
         throw new Error('Usuário não existe!')
       }
 
-      return await this.wallet.update({ user_id: user.id }, {
-        where: { id: props.wallet_id }
-      })
+      return await this.wallet.update(
+        { user_id: user.id },
+        {
+          where: { id: props.wallet_id }
+        }
+      )
     } catch (error) {
       throw new Error(error)
     }
   }
 
-  async create() {
+  async create () {
     try {
-      const dataWallet = { wallet_code: v4(), balance: 0 };
+      const dataWallet = { wallet_code: v4(), balance: 0 }
 
-      const wallet = await this.wallet.create(dataWallet);
+      const wallet = await this.wallet.create(dataWallet)
 
       return wallet
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error)
     }
   }
 
-  async getAllWallets() {
+  async getAllWallets () {
     try {
-      const wallets = await this.wallet.findAll();
+      const wallets = await this.wallet.findAll()
 
-      return wallets;
+      return wallets
     } catch (error) {
       throw new Error(error)
     }
   }
 
-  async getByIdOrWalletId(identify) {
+  async getByIdOrWalletId (identify) {
     try {
-      if (typeof identify === "number")
-        return await this.wallet.findByPk(identify);
+      if (typeof identify === 'number') {
+        return await this.wallet.findByPk(identify)
+      }
 
-      return this.wallet.findOne({ where: { wallet_code: identify } });
+      return this.wallet.findOne({ where: { wallet_code: identify } })
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error)
     }
   }
 
-  async addBalance(balance, walletId) {
+  async addBalance (balance, walletId) {
     try {
-      const wallet = await this.wallet.findByPk(walletId);
+      const wallet = await this.wallet.findByPk(walletId)
 
-      return await wallet.update({ balance: balance });
+      return await wallet.update({ balance: balance })
     } catch (error) {
       throw new Error(error)
     }
   }
 }
 
-module.exports = { WalletServices };
+module.exports = { WalletServices }

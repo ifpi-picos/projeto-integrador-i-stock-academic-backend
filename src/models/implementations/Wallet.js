@@ -22,7 +22,7 @@ class Wallet extends Model {
     })
   }
 
-  static associate(models) {
+  static associate (models) {
     this.belongsTo(models.Users, {
       foreignKey: 'user_id',
       as: 'user_wallet'

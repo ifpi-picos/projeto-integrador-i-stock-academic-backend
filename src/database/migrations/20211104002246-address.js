@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
-      cep: {
+      zip_code: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -18,6 +18,10 @@ module.exports = {
         allowNull: false
       },
       city: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      district: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -35,7 +39,7 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         unique: true,
         references: {
           model: 'users',

@@ -1,9 +1,10 @@
-const { Users } = require('../models')
-const { UsersServices } = require('../services')
+const { Users, Address } = require('../models')
+const { UsersServices, AddressServices } = require('../services')
 const yup = require('yup')
 const { cpf, cnpj } = require('cpf-cnpj-validator')
 
 const usersServices = new UsersServices(Users)
+const addressServices = new AddressServices(Address);
 
 module.exports = {
   async save(request, response) {
@@ -54,6 +55,49 @@ module.exports = {
       return response.status(201).json(user)
     } catch (error) {
       return response.status(400).json(error.message)
+    }
+  },
+
+  async saveAddress(request, response) {
+    try {
+      const { zip_code, state, city, district, public_place, complement, number, user_id } = request.body;
+
+      const schema = yup.object().shape({
+        zip_code: yup.string('CEP deve ser do tipo string!'),
+        state: yup.string('Estado deve ser do tipo string!'),
+        city: yup.string('Cidade deve ser do tipo string!'),
+        district: yup.string('Bairro deve ser do tipo string!'),
+        public_place: yup.string('Rua deve ser do tipo string!'),
+        complement: yup.string('complemento deve ser do tipo string!'),
+        number: yup.string('O número deve ser do tipo string!'),
+        user_id: yup.number('User_id deve ser do tipo number')
+      })
+
+      try {
+        await schema.validate(request.body, { abortEarly: false })
+      } catch (error) {
+        return response.status(400).json({ message: error.errors })
+      }
+
+      try {
+        const address = await addressServices.saveAddress({
+          zip_code,
+          state,
+          city,
+          district,
+          public_place,
+          complement,
+          number,
+          user_id
+        })
+
+        return response.status(201).json(address)
+      } catch (error) {
+        return response.status(400).json({ message: error.message })
+      }
+
+    } catch (error) {
+      return response.status(400).json({ message: error.message })
     }
   },
 

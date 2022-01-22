@@ -28,6 +28,15 @@ class UsersServices {
     }
   }
 
+  async saveAddress(dataAddress = {}) {
+    try {
+  
+      return await this.users.create(dataAddress)
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
   async getAllUsers() {
     try {
       const users = await this.users.findAll({
