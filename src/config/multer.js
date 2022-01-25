@@ -20,7 +20,7 @@ const storageTypes = {
     }
   }),
   firebase: FirebaseStorage({
-    bucketName: 'stock-academic-7e9cc.appspot.com',
+    bucketName: process.env.FIREBASE_BUCKET_NAME,
     credentials: {
       clientEmail: firebaseCredentials.client_email,
       privateKey: firebaseCredentials.private_key,

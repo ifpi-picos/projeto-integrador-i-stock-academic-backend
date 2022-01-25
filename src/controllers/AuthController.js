@@ -1,8 +1,10 @@
 const { Users } = require('../models')
 const { AuthServices } = require('../services')
+const { ResponsesFactory } = require('../helpers/ResponsesFactory')
 const yup = require('yup')
 
 const authVendorsServices = new AuthServices(Users)
+const responsesFactory = new ResponsesFactory()
 
 module.exports = {
   async userLogin(request, response) {
@@ -16,14 +18,17 @@ module.exports = {
     try {
       await schema.validate(request.body, { abortEarly: false })
     } catch (error) {
-      return response.status(400).json({ error: error.errors })
+      return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }, error.message))
     }
 
     try {
       const { token, dataEntite } = await authVendorsServices.signin(email, password)
-      response.status(201).json({ auth: true, token, entite: dataEntite })
+      const data = { auth: true, token, entite: dataEntite }
+
+      return response.status(201).json(responsesFactory.success(response.statusCode, data))
     } catch (error) {
-      response.status(401).json({ auth: false, token: null, error: error.message })
+      const data = { auth: false, token: null }
+      return response.status(401).json(responsesFactory.error(response.statusCode, data, error.message))
     }
   }
 }

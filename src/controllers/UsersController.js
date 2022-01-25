@@ -1,10 +1,12 @@
 const { Users, Address } = require('../models')
 const { UsersServices, AddressServices } = require('../services')
+const { ResponsesFactory } = require('../helpers/ResponsesFactory')
 const yup = require('yup')
 const { cpf, cnpj } = require('cpf-cnpj-validator')
 
 const usersServices = new UsersServices(Users)
 const addressServices = new AddressServices(Address);
+const responsesFactory = new ResponsesFactory()
 
 module.exports = {
   async save(request, response) {
@@ -35,7 +37,7 @@ module.exports = {
         return response.status(403).json({ message: 'CPF/CNPJ inválido!' })
       }
     } catch (error) {
-      return response.status(400).json({ message: error.errors })
+      return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }))
     }
 
     try {
@@ -52,9 +54,9 @@ module.exports = {
       delete user.password
       delete user.wallet_code
 
-      return response.status(201).json(user)
+      return response.status(201).json(responsesFactory.success(response.statusCode, user))
     } catch (error) {
-      return response.status(400).json(error.message)
+      return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
     }
   },
 
@@ -76,7 +78,7 @@ module.exports = {
       try {
         await schema.validate(request.body, { abortEarly: false })
       } catch (error) {
-        return response.status(400).json({ message: error.errors })
+        return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }, error.message))
       }
 
       try {
@@ -91,13 +93,13 @@ module.exports = {
           user_id
         })
 
-        return response.status(201).json(address)
+        return response.status(201).json(responsesFactory.success(response.statusCode, address))
       } catch (error) {
-        return response.status(400).json({ message: error.message })
+        return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
       }
 
     } catch (error) {
-      return response.status(400).json({ message: error.message })
+      return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
     }
   },
 
@@ -105,9 +107,9 @@ module.exports = {
     try {
       const users = await usersServices.getAllUsers();
 
-      response.status(200).json(users);
+      response.status(200).json(responsesFactory.success(response.statusCode, users));
     } catch (error) {
-      return response.status(400).json(error.message)
+      return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
     }
   },
 
@@ -117,9 +119,9 @@ module.exports = {
     try {
       const user = usersServices.deleteById(id)
 
-      return response.status(200).json(user)
+      return response.status(200).json(responsesFactory.success(response.statusCode, user))
     } catch (error) {
-      return response.status(400).json(error.message)
+      return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
     }
   }
 }
