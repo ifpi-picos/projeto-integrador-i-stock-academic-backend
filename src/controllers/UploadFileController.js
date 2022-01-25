@@ -23,9 +23,9 @@ module.exports = {
     try {
       const { pathFile } = request.params
 
-      const successMessage = await firebaseAdmin.destroyFile(pathFile)
+      const resp = await firebaseAdmin.destroyFile(pathFile)
 
-      return response.status(200).json(responsesFactory.success(response.statusCode, null, successMessage))
+      return response.status(200).json(responsesFactory.success(response.statusCode, null, 'Imagem deletada com sucesso!'))
     } catch (error) {
       return response.status(400).json(responsesFactory.error(response.statusCode, null, error.message))
     }

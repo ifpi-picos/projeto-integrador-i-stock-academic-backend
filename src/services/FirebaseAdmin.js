@@ -14,9 +14,9 @@ class FirebaseAdmin {
 
   async destroyFile(pathFile) {
     try {
-      await this.storage.bucket().deleteFiles(pathFile)
+      const resp = await this.storage.bucket().file(pathFile).delete()
 
-      return 'Imagem deletada com sucesso!'
+      return resp
     } catch (error) {
       throw error
     }
