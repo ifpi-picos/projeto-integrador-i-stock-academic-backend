@@ -8,7 +8,7 @@ class AuthServices {
   }
 
   generateToken (entite) {
-    const token = jwt.sign({ id: entite.id }, authConfig.secret, { expiresIn: '12h' })
+    const token = jwt.sign({ id: entite.id, is_admin: entite.is_admin }, authConfig.secret, { expiresIn: '12h' })
     return token
   }
 

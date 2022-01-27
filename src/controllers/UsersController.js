@@ -10,19 +10,36 @@ const responsesFactory = new ResponsesFactory()
 
 module.exports = {
   async save(request, response) {
-    const { name, nickname, cpf_or_cnpj, phone, email, password, is_admin } = request.body
+    const {
+      name,
+      nickname,
+      phone,
+      email,
+      type_key_pix,
+      key_pix,
+      cpf_or_cnpj,
+      password,
+      is_admin
+    } = request.body
 
     const schema = yup.object().shape({
       name: yup.string('Nome deve ser do tipo string!'),
       nickname: yup.string('Apelido deve ser do tipo string!'),
-      cpf_or_cnpj: yup.string('CPF deve ser do tipo string!'),
       phone: yup.string('Telefone deve ser do tipo string!'),
       email: yup.string().email('Email deve ser válido!'),
+      key_pix: yup.string('key_pix deve ser do tipo string!'),
+      cpf_or_cnpj: yup.string('CPF deve ser do tipo string!'),
       password: yup.string('A senha deve string!'),
       is_admin: yup.boolean('Admin deve ser booleano!')
     })
 
     try {
+      const validKeyPix = ['cpf/cnpj', 'phone', 'email', 'randomKey']
+
+      if (!validKeyPix.includes(type_key_pix)) {
+        throw new Error(`Os tipos de chaves válidos são ${validKeyPix}`)
+      }
+
       await schema.validate(request.body, { abortEarly: false })
 
       let cpf_or_cnpj_validate = null;
@@ -34,7 +51,7 @@ module.exports = {
       }
 
       if (cpf_or_cnpj_validate === false) {
-        return response.status(403).json({ message: 'CPF/CNPJ inválido!' })
+        throw new Error('CPF/CNPJ inválido!')
       }
     } catch (error) {
       return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }))
@@ -44,11 +61,13 @@ module.exports = {
       const user = await usersServices.create({
         name,
         nickname,
-        cpf_or_cnpj,
         phone,
         email,
+        type_key_pix,
+        key_pix,
+        cpf_or_cnpj,
         password,
-        is_admin: is_admin ? is_admin : false
+        is_admin: is_admin || false
       })
 
       delete user.password
