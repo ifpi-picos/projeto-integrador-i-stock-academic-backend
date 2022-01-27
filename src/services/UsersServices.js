@@ -30,7 +30,7 @@ class UsersServices {
 
   async saveAddress(dataAddress = {}) {
     try {
-  
+
       return await this.users.create(dataAddress)
     } catch (error) {
       throw new Error(error)
@@ -44,8 +44,8 @@ class UsersServices {
         where: { is_admin: false },
         include: {
           model: Wallet,
-          association: 'wallet',
-          attributes: [ 'id','balance', 'wallet_code']
+          association: 'user_wallet',
+          attributes: [ 'id', 'wallet_code']
         }
       });
 

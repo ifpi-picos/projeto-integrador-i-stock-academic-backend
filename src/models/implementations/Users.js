@@ -7,11 +7,31 @@ class Users extends Model {
         type: DataTypes.STRING,
         allowNull: true
       },
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       phone: {
         type: DataTypes.STRING,
         allowNull: true
       },
       email: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      type_key_pix: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      key_pix: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      cpf_or_cnpj: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      user_photo: {
         type: DataTypes.STRING,
         allowNull: true
       },
@@ -31,9 +51,9 @@ class Users extends Model {
   }
 
   static associate(models) {
-    this.hasOne(models.Wallet, {
-      foreignKey: 'user_id',
-      as: 'wallet'
+    this.belongsTo(models.Wallet, {
+      foreignKey: 'wallet_id',
+      as: 'user_wallet'
     })
     this.hasOne(models.Address, {
       foreignKey: 'user_id',

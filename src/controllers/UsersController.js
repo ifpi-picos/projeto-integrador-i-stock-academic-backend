@@ -19,6 +19,7 @@ module.exports = {
       key_pix,
       cpf_or_cnpj,
       password,
+      wallet_id,
       is_admin
     } = request.body
 
@@ -30,13 +31,14 @@ module.exports = {
       key_pix: yup.string('key_pix deve ser do tipo string!'),
       cpf_or_cnpj: yup.string('CPF deve ser do tipo string!'),
       password: yup.string('A senha deve string!'),
+      wallet_id: yup.number('wallet_id deve ser númerico!').integer('wallet_id deve ser inteiro!'),
       is_admin: yup.boolean('Admin deve ser booleano!')
     })
 
     try {
       const validKeyPix = ['cpf/cnpj', 'phone', 'email', 'randomKey']
 
-      if (!validKeyPix.includes(type_key_pix)) {
+      if (type_key_pix && !validKeyPix.includes(type_key_pix)) {
         throw new Error(`Os tipos de chaves válidos são ${validKeyPix}`)
       }
 
@@ -44,7 +46,7 @@ module.exports = {
 
       let cpf_or_cnpj_validate = null;
 
-      if (cpf_or_cnpj.length > 14) {
+      if (cpf_or_cnpj && cpf_or_cnpj.length > 14) {
         cpf_or_cnpj_validate = cnpj.isValid(cpf_or_cnpj)
       } else {
         cpf_or_cnpj_validate = cpf.isValid(cpf_or_cnpj)
@@ -54,7 +56,7 @@ module.exports = {
         throw new Error('CPF/CNPJ inválido!')
       }
     } catch (error) {
-      return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }))
+      return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }, error.message))
     }
 
     try {
@@ -67,6 +69,7 @@ module.exports = {
         key_pix,
         cpf_or_cnpj,
         password,
+        wallet_id,
         is_admin: is_admin || false
       })
 
