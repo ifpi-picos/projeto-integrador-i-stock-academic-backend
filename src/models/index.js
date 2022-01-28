@@ -3,7 +3,7 @@ const { Wallet } = require('./implementations/Wallet')
 const { Address } = require('./implementations/Address')
 
 module.exports = {
-  Users,
-  Wallet,
-  Address,
+    Users,
+    Wallet,
+    Address,
 }

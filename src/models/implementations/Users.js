@@ -53,7 +53,7 @@ class Users extends Model {
     static associate(models) {
         this.belongsTo(models.Wallet, {
             foreignKey: 'wallet_id',
-            as: 'user_wallet'
+            as: 'wallet'
         })
         this.hasOne(models.Address, {
             foreignKey: 'user_id',
