@@ -1,9 +1,9 @@
 const { Router } = require('express')
 const UploadFileController = require('../controllers/UploadFileController')
 
-const routes = Router()
+const router = Router()
 
-routes.post('/file-upload', UploadFileController.upload)
-routes.delete('/file-exclude/:pathFile', UploadFileController.deleteFile)
+router.post('/file-upload', UploadFileController.upload)
+router.delete('/file-exclude/:pathFile', UploadFileController.deleteFile)
 
-module.exports = routes
+module.exports = router

@@ -6,9 +6,9 @@ const { FirebaseAdmin } = require('./FirebaseAdmin')
 
 
 module.exports = {
-  AuthServices,
-  UsersServices,
-  WalletServices,
-  AddressServices,
-  FirebaseAdmin
+    AuthServices,
+    UsersServices,
+    WalletServices,
+    AddressServices,
+    FirebaseAdmin
 }
