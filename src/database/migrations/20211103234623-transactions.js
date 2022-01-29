@@ -32,7 +32,6 @@ module.exports = {
       responsible_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
         references: {
           model: 'users',
           key: 'id'
@@ -43,7 +42,6 @@ module.exports = {
       wallet_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
         references: {
           model: 'wallet',
           key: 'id'
