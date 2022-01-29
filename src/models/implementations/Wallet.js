@@ -17,7 +17,11 @@ class Wallet extends Model {
     static associate(models) {
         this.hasOne(models.Users, {
             foreignKey: 'wallet_id',
-            as: 'wallet_user'
+            as: 'wallet'
+        })
+        this.hasMany(models.Transactions, {
+            foreignKey: 'wallet_id',
+            as: 'wallet_transactions'
         })
     }
 }
