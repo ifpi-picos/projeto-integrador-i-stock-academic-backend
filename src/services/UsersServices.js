@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const SALT = 8
-const { Wallet, Address } = require('../models')
+const { Wallet } = require('../models')
 class UsersServices {
     constructor(Users) {
         this.users = Users
@@ -28,15 +28,6 @@ class UsersServices {
         }
     }
 
-    async saveAddress(dataAddress = {}) {
-        try {
-
-            return await this.users.create(dataAddress)
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
-
     async getAllUsers() {
         try {
             const users = await this.users.findAll({
@@ -52,6 +43,16 @@ class UsersServices {
             return users;
         } catch (error) {
             throw new Error(error)
+        }
+    }
+
+    async updateDataUser(userId, data) {
+        try {
+            return await this.users.update({ ...data }, {
+                where: { id: userId }
+            })
+        } catch (error) {
+            throw error
         }
     }
 
