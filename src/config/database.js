@@ -1,6 +1,10 @@
 // Config dotenv
+const pathEnvFile = process.env.NODE_ENV === 'test' ?
+    '.env.test' : process.env.NODE_ENV === 'dev' ?
+    '.env.dev' : '.env'
+
 require('dotenv').config({
-    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+    path: pathEnvFile
 })
 
 module.exports = {
