@@ -18,7 +18,7 @@ module.exports = {
     try {
       await schema.validate(request.body, { abortEarly: false })
     } catch (error) {
-      return response.status(400).json(responsesFactory.error(response.statusCode, { ...error.errors }, error.message))
+      return response.status(400).json(responsesFactory.error(response.statusCode, { errors: error.errors }, error.message))
     }
 
     try {
