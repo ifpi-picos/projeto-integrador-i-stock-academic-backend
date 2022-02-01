@@ -3,37 +3,37 @@ const bcrypt = require('bcrypt')
 const authConfig = require('../config/authentication.json')
 
 class AuthServices {
-  constructor (model) {
-    this.model = model
-  }
-
-  generateToken (entite) {
-    const token = jwt.sign({ id: entite.id }, authConfig.secret, { expiresIn: '12h' })
-    return token
-  }
-
-  async signin (email, password) {
-    try {
-      const entite = await this.model.findOne({
-        where: { email, is_admin: true }
-      })
-
-      if (!entite) {
-        throw new Error('Invalid email or password')
-      }
-
-      const passwordIsValid = bcrypt.compareSync(password, entite.password)
-      if (!passwordIsValid) {
-        throw new Error('Invalid email or password')
-      }
-
-      const token = this.generateToken(entite)
-      const { name } = entite
-      return { token, dataEntite: { name, email } }
-    } catch (error) {
-      throw new Error(error)
+    constructor(model) {
+        this.model = model
     }
-  }
+
+    generateToken(entite) {
+        const token = jwt.sign({ id: entite.id, is_admin: entite.is_admin }, authConfig.secret, { expiresIn: '12h' })
+        return token
+    }
+
+    async signin(email, password) {
+        try {
+            const entite = await this.model.findOne({
+                where: { email, is_admin: true }
+            })
+
+            if (!entite) {
+                throw new Error('Invalid email or password')
+            }
+
+            const passwordIsValid = bcrypt.compareSync(password, entite.password)
+            if (!passwordIsValid) {
+                throw new Error('Invalid email or password')
+            }
+
+            const token = this.generateToken(entite)
+            const { name } = entite
+            return { token, dataEntite: { name, email } }
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 module.exports = { AuthServices }
