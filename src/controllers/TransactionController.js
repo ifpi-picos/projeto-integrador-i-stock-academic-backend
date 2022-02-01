@@ -16,5 +16,29 @@ module.exports = {
         } catch (error) {
             return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
         }
+    },
+
+    async getTransactions(request, response) {
+        try {
+            const { wallet_id } = request.body
+
+            const transactions = await transactionServices.getTransactions(wallet_id)
+
+            return response.status(200).json(responsesFactory.success(response.statusCode, transactions))
+        } catch (error) {
+            return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
+        }
+    },
+
+    async getBalance(request, response) {
+        try {
+            const { wallet_id } = request.body
+
+            const balance = await transactionServices.getBalance(wallet_id)
+
+            return response.status(200).json(responsesFactory.success(response.statusCode, balance))
+        } catch (error) {
+            return response.status(400).json(responsesFactory.error(response.statusCode, error.data, error.message))
+        }
     }
 }

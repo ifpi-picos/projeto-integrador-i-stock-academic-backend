@@ -4,8 +4,8 @@ const { Address } = require('./implementations/Address')
 const { Transactions } = require('./implementations/Transactions')
 
 module.exports = {
-  Users,
-  Wallet,
-  Address,
-  Transactions
+    Users,
+    Wallet,
+    Address,
+    Transactions
 }
