@@ -1,28 +1,8 @@
 const { v4 } = require('uuid')
 
 class WalletServices {
-    constructor(Wallet, userServices) {
+    constructor(Wallet) {
         this.wallet = Wallet
-        this.userServices = userServices
-    }
-
-    async bindUserWallet(props) {
-        try {
-            const user = await this.userServices.getByPk(props.user_id)
-
-            if (!user) {
-                throw new Error('Usuário não existe!')
-            }
-
-            return await this.wallet.update(
-                { user_id: user.id },
-                {
-                    where: { id: props.wallet_id }
-                }
-            )
-        } catch (error) {
-            throw new Error(error)
-        }
     }
 
     async create() {
@@ -54,16 +34,6 @@ class WalletServices {
             }
 
             return this.wallet.findOne({ where: { wallet_code: identify } })
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
-
-    async addBalance(balance, walletId) {
-        try {
-            const wallet = await this.wallet.findByPk(walletId)
-
-            return await wallet.update({ balance: balance })
         } catch (error) {
             throw new Error(error)
         }

@@ -4,7 +4,7 @@ class Transactions extends Model {
     static init(sequelize) {
         super.init({
             type_operation: {
-                type: DataTypes.STRING,
+                type: DataTypes.ENUM('deposit', 'withdraw'),
                 allowNull: false
             },
             type_material: {

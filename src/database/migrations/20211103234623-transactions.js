@@ -10,7 +10,7 @@ module.exports = {
                 allowNull: false
             },
             type_operation: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM('deposit', 'withdraw'),
                 allowNull: false
             },
             type_material: {
@@ -26,7 +26,7 @@ module.exports = {
                 allowNull: true
             },
             type_payment: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM('pix', 'cash'),
                 allowNull: true
             },
             responsible_id: {

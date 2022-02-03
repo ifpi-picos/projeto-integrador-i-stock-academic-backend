@@ -32,7 +32,7 @@ module.exports = {
 
     async getBalance(request, response) {
         try {
-            const { wallet_id } = request.body
+            const { wallet_id } = request.params
 
             const balance = await transactionServices.getBalance(wallet_id)
 
