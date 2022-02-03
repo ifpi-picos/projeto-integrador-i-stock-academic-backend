@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const SALT = 8
-const { Wallet } = require('../models')
+const { Wallet, Transactions } = require('../models')
 class UsersServices {
     constructor(Users) {
         this.users = Users
@@ -36,7 +36,12 @@ class UsersServices {
                 include: [{
                     model: Wallet,
                     association: 'wallet',
-                    attributes: ['id', 'wallet_code']
+                    attributes: ['id', 'wallet_code'],
+                    include: [{
+                        model: Transactions,
+                        association: 'wallet_transactions',
+                        attributes: ['type_operation', 'total_value']
+                    }]
                 }]
             });
 
