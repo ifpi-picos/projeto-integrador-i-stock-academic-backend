@@ -27,7 +27,7 @@ module.exports = {
                 unique: true
             },
             type_key_pix: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM('email', 'phone', 'cpf/cnpj', 'random'),
                 allowNull: true
             },
             key_pix: {

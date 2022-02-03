@@ -21,14 +21,14 @@ module.exports = {
             } = request.body;
 
             const schema = yup.object().shape({
-                zip_code: yup.string('CEP deve ser do tipo string!'),
-                state: yup.string('Estado deve ser do tipo string!'),
-                city: yup.string('Cidade deve ser do tipo string!'),
-                district: yup.string('Bairro deve ser do tipo string!'),
-                public_place: yup.string('Rua deve ser do tipo string!'),
+                zip_code: yup.string('CEP deve ser do tipo string!').required('O campo zip_code é requerido!'),
+                state: yup.string('Estado deve ser do tipo string!').required('O campo state é requerido!'),
+                city: yup.string('Cidade deve ser do tipo string!').required('O campo city é requerido!'),
+                district: yup.string('Bairro deve ser do tipo string!').required('O campo district é requerido!'),
+                public_place: yup.string('Rua deve ser do tipo string!').required('O campo public place é requerido!'),
                 complement: yup.string('complemento deve ser do tipo string!'),
                 number: yup.string('O número deve ser do tipo string!'),
-                user_id: yup.number('User_id deve ser do tipo number')
+                user_id: yup.number('User_id deve ser do tipo number').required('O campo user_id é requerido!')
             })
 
             try {

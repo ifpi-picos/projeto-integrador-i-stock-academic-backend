@@ -20,7 +20,7 @@ class Users extends Model {
                 allowNull: true
             },
             type_key_pix: {
-                type: DataTypes.STRING,
+                type: DataTypes.ENUM('email', 'phone', 'cpf/cnpj', 'random'),
                 allowNull: true
             },
             key_pix: {
