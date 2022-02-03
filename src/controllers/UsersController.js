@@ -23,7 +23,7 @@ module.exports = {
         } = request.body
 
         const schema = yup.object().shape({
-            name: yup.string('Nome deve ser do tipo string!'),
+            name: yup.string('Nome deve ser do tipo string!').required('Campo nome é requerido!'),
             nickname: yup.string('Apelido deve ser do tipo string!'),
             phone: yup.string('Telefone deve ser do tipo string!'),
             email: yup.string().email('Email deve ser válido!'),
@@ -73,7 +73,7 @@ module.exports = {
             })
 
             delete user.password
-            delete user.wallet_code
+            delete user.cpf
 
             return response.status(201).json(responsesFactory.success(response.statusCode, user))
         } catch (error) {

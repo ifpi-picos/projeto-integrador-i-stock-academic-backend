@@ -19,6 +19,10 @@ class Transactions extends Model {
                 type: DataTypes.DOUBLE,
                 allowNull: false
             },
+            total_value: {
+                type: DataTypes.DOUBLE,
+                allowNull: false
+            },
             type_payment: {
                 type: DataTypes.STRING,
                 allowNull: false

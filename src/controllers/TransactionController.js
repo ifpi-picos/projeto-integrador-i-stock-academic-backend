@@ -8,9 +8,9 @@ const responsesFactory = new ResponsesFactory()
 module.exports = {
     async saveTransaction(request, response) {
         try {
-            const { type_operation, type_material, price_kg, kgs, type_payment, responsible_id, wallet_id } = request.body
+            const { type_operation, type_material, price_kg, kgs, type_payment, responsible_id, wallet_id, total_value } = request.body
 
-            const wallet = await transactionServices.saveTransaction({ type_operation, type_material, price_kg, kgs, type_payment, responsible_id, wallet_id })
+            const wallet = await transactionServices.saveTransaction({ type_operation, type_material, price_kg, kgs, type_payment, responsible_id, wallet_id, total_value })
 
             return response.status(201).json(responsesFactory.success(response.statusCode, wallet))
         } catch (error) {

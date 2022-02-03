@@ -25,6 +25,10 @@ module.exports = {
                 type: Sequelize.DOUBLE,
                 allowNull: true
             },
+            total_value: {
+                type: Sequelize.DOUBLE,
+                allowNull: false
+            },
             type_payment: {
                 type: Sequelize.ENUM('pix', 'cash'),
                 allowNull: true
