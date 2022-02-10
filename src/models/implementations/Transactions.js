@@ -9,15 +9,15 @@ class Transactions extends Model {
             },
             type_material: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: true
             },
             price_kg: {
                 type: DataTypes.DOUBLE,
-                allowNull: false
+                allowNull: true
             },
             kgs: {
                 type: DataTypes.DOUBLE,
-                allowNull: false
+                allowNull: true
             },
             total_value: {
                 type: DataTypes.DOUBLE,
