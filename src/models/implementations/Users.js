@@ -59,11 +59,11 @@ class Users extends Model {
             foreignKey: 'user_id',
             as: 'address'
         })
-        this.belongsToMany(models.Transactions, {
-            through: 'transaction_responsible',
-            foreignKey: 'responsible_id',
-            as: 'transactions'
-        })
+        // this.belongsToMany(models.Transactions, {
+        //     through: 'transaction_responsible',
+        //     foreignKey: 'responsible_id',
+        //     as: 'transactions'
+        // })
     }
 }
 
