@@ -24,9 +24,13 @@ class Transactions extends Model {
                 allowNull: false
             },
             type_payment: {
+                type: DataTypes.ENUM('pix', 'cash'),
+                allowNull: true
+            },
+            responsible: {
                 type: DataTypes.STRING,
                 allowNull: false
-            },
+            }
         }, {
             sequelize,
             modelName: 'Transactions',
@@ -35,10 +39,10 @@ class Transactions extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Users, {
-            foreignKey: 'responsible_id',
-            as: 'user_transactions'
-        })
+        // this.belongsTo(models.Users, {
+        //     foreignKey: 'responsible_id',
+        //     as: 'user_transactions'
+        // })
         this.belongsTo(models.Wallet, {
             foreignKey: 'wallet_id',
             as: 'wallet_transactions_user'
