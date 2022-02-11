@@ -17,6 +17,7 @@ module.exports = {
             type_key_pix,
             key_pix,
             cpf_or_cnpj,
+            user_photo,
             password,
             wallet_id,
             is_admin
@@ -29,6 +30,7 @@ module.exports = {
             email: yup.string().email('Email deve ser válido!'),
             key_pix: yup.string('key_pix deve ser do tipo string!'),
             cpf_or_cnpj: yup.string('CPF deve ser do tipo string!'),
+            user_photo: yup.string('user_photo deve ser to tipo string!'),
             password: yup.string('A senha deve string!'),
             wallet_id: yup.number('wallet_id deve ser númerico!').integer('wallet_id deve ser inteiro!'),
             is_admin: yup.boolean('Admin deve ser booleano!')
@@ -67,6 +69,7 @@ module.exports = {
                 type_key_pix,
                 key_pix,
                 cpf_or_cnpj,
+                user_photo,
                 password,
                 wallet_id,
                 is_admin: is_admin || false
