@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const SALT = 8
-const { Wallet, Transactions } = require('../models')
+const { Wallet, Transactions, Address } = require('../models')
 class UsersServices {
     constructor(Users) {
         this.users = Users
@@ -31,8 +31,8 @@ class UsersServices {
     async getAllUsers() {
         try {
             const users = await this.users.findAll({
-                attributes: ['id', 'name', 'email', 'phone'],
                 where: { is_admin: false },
+                attributes: ['id', 'name', 'nickname', 'phone', 'email', 'type_key_pix', 'key_pix', 'cpf_or_cnpj', 'user_photo'],
                 include: [{
                     model: Wallet,
                     association: 'wallet',
@@ -40,8 +40,10 @@ class UsersServices {
                     include: [{
                         model: Transactions,
                         association: 'wallet_transactions',
-                        attributes: ['type_operation', 'total_value']
                     }]
+                },{
+                    model: Address,
+                    association: 'address'
                 }]
             });
 
