@@ -31,6 +31,10 @@ class Address extends Model {
                 type: DataTypes.STRING,
                 allowNull: true
             },
+            street: {
+                type: DataTypes.STRING,
+                allowNull: true
+            }
         }, {
             sequelize,
             modelName: 'Address',

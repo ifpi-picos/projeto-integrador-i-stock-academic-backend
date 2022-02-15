@@ -17,7 +17,8 @@ module.exports = {
                 public_place,
                 complement,
                 number,
-                user_id
+                user_id,
+                street
             } = request.body;
 
             const schema = yup.object().shape({
@@ -28,7 +29,8 @@ module.exports = {
                 public_place: yup.string('Rua deve ser do tipo string!').required('O campo public place é requerido!'),
                 complement: yup.string('complemento deve ser do tipo string!'),
                 number: yup.string('O número deve ser do tipo string!'),
-                user_id: yup.number('User_id deve ser do tipo number').required('O campo user_id é requerido!')
+                user_id: yup.number('User_id deve ser do tipo number').required('O campo user_id é requerido!'),
+                street: yup.string('O campo street deve ser do tipo string!')
             })
 
             try {
@@ -46,7 +48,8 @@ module.exports = {
                     public_place,
                     complement,
                     number,
-                    user_id
+                    user_id,
+                    street
                 })
 
                 return response.status(201).json(responsesFactory.success(response.statusCode, address))
