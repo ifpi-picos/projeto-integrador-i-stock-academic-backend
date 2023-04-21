@@ -1,7 +1,7 @@
 {
   "name": "g-pharm-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
   "repository": "https://github.com/Rafaelmaiden/g-pharm-backend.git",
   "author": "edmarques11 <edmarquessantosdelima@gmail.com>",
   "license": "MIT",
